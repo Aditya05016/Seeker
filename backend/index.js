@@ -1,11 +1,18 @@
 const express = require('express');
-const dotenv = require('dotenv'); // import ki jagah require use karein
+const dotenv = require('dotenv');
+const connectDB = require('./config/database');
+const videoRoutes = require('./routes/videoRoutes'); // 1. Routes ko import karein
 
 dotenv.config();
 
 const app = express();
 
+connectDB();
+
 app.use(express.json());
+
+// 2. Routes ko mount karein
+app.use('/api/videos', videoRoutes); 
 
 app.get('/', (req, res) => {
     res.send("this is home page");
